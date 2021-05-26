@@ -1,0 +1,156 @@
+<template>
+    <div class="demo-only">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container" style="width: 600px">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={handleCloseModalWithData}>
+                        <lightning-icon icon-name="utility:close" size="medium">
+                        </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Edit Dependencies</h2>
+                </header>
+
+                <div class="slds-modal__content"
+                     style="padding: 0px 16px 16px 16px; background-color: white; min-height:400px">
+
+                    <lightning-combobox name="StageName"
+                                        label="Stage"
+                                        data-fieldname="StageName"
+                                        value={statusValue}
+                                        required
+                                        disabled={boolStageName}
+                                        options={listPicklistStageClosed}
+                                        onchange={changeStatus}>
+                    </lightning-combobox>
+
+                    <lightning-combobox if:true={boolProposal}
+                                        name="ProposalType"
+                                        label="Proposal Type"
+                                        value={newStageAndDependencies.ProposalType__c}
+                                        required
+                                        data-fieldname="ProposalType__c"
+                                        options={listPicklistProposalType}
+                                        onchange={handleAddValueToObject}>
+                    </lightning-combobox>
+
+                    <lightning-combobox if:true={boolProposal}
+                                        name="PricingModel"
+                                        label="Pricing Model"
+                                        value={newStageAndDependencies.Pricing_Model__c}
+                                        required
+                                        data-fieldname="Pricing_Model__c"
+                                        options={listPicklistPricingModel}
+                                        onchange={handleAddValueToObject}>
+                    </lightning-combobox>
+
+                    <lightning-input if:true={boolCaseRate}
+                                     name="CaseRateAmount"
+                                     label="Case Rate Amount"
+                                     value={newStageAndDependencies.CaseRateAmount__c}
+                                     required
+                                     data-fieldname="CaseRateAmount__c"
+                                     onchange={handleAddValueToObject}>
+                    </lightning-input>
+
+                    <lightning-input if:true={boolProposal}
+                                     name="ContractLength"
+                                     label="Contract Length"
+                                     value={newStageAndDependencies.ContractLength__c}
+                                     required
+                                     data-fieldname="ContractLength__c"
+                                     onchange={handleAddValueToObject}>
+                    </lightning-input>
+
+                    <lightning-input if:true={boolProposal}
+                                     name="ImplementationFees"
+                                     label="Implementation Fees"
+                                     value={newStageAndDependencies.Implementation_Fees__c}
+                                     required
+                                     data-fieldname="Implementation_Fees__c"
+                                     onchange={handleAddValueToObject}>
+                    </lightning-input>
+
+                    <lightning-input if:true={boolProposal}
+                                     name="FeePerMemberEmployee"
+                                     label="Fee per Member Employee"
+                                     value={newStageAndDependencies.Fee_per_Member_Employee__c}
+                                     required
+                                     data-fieldname="Fee_per_Member_Employee__c"
+                                     onchange={handleAddValueToObject}>
+                    </lightning-input>
+
+                    <lightning-input if:true={boolDeferred}
+                                     data-fieldname="DeferredDate__c"
+                                     type="date"
+                                     value={newStageAndDependencies.DeferredDate__c}
+                                     required
+                                     name="DeferredDate"
+                                     label="Enter a date"
+                                     onchange={handleAddValueToObject}>
+                    </lightning-input>
+
+                    <lightning-combobox if:true={boolReason}
+                                        name="Reason"
+                                        label="Reason"
+                                        value={newStageAndDependencies.Reason__c}
+                                        required
+                                        data-fieldname="Reason__c"
+                                        options={listPicklistReason}
+                                        onchange={handleAddValueToObject}>
+                    </lightning-combobox>
+
+                    <lightning-input if:true={boolClosedWon}
+                                     data-fieldname="CloseDate"
+                                     type="date"
+                                     required
+                                     value={newStageAndDependencies.CloseDate}
+                                     name="CloseDate"
+                                     label="Close Date"
+                                     onchange={handleAddValueToObject}>
+                    </lightning-input>
+
+<!--                    <lightning-input if:true={boolClosedWon}-->
+<!--                                     data-fieldname="Amount"-->
+<!--                                     type="number"-->
+<!--                                     required-->
+<!--                                     value={newStageAndDependencies.Amount}-->
+<!--                                     name="Amount"-->
+<!--                                     label="Amount"-->
+<!--                                     onchange={handleAddValueToObject}>-->
+<!--                    </lightning-input>-->
+
+
+                    <lightning-textarea if:true={boolReasonOther}
+                                        name="Other Reasons"
+                                        value={newStageAndDependencies.OtherReasons__c}
+                                        required
+                                        data-fieldname="OtherReasons__c"
+                                        label="Other Reasons"
+                                        onchange={handleAddValueToObject}>
+                    </lightning-textarea>
+
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                            class='slds-p-horizontal--small'
+                            label="Save"
+                            data-fieldname="Save"
+                            variant="neutral"
+                            onclick={handleSaveMethodWithData}>
+                    </lightning-button>
+                    <lightning-button
+                            class='slds-p-horizontal--small'
+                            label="Cancel"
+                            variant="neutral"
+                            onclick={handleCloseModalWithData}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</template>

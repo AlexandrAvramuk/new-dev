@@ -1,0 +1,165 @@
+<template>
+    <article class="slds-card">
+        <div class="slds-card__body slds-card__body_inner" style="background-color: white;">
+            <div class="slds-path slds-path_has-coaching">
+                <div class="slds-grid slds-path__track">
+                    <div class="slds-grid slds-path__scroller-container">
+                        <div style="margin: 0px 12px 0px 0px">
+
+                            <lightning-button-icon icon-name={iconButtonShowMore}
+                                                   alternative-text="Chevronright"
+                                                   title="Utility"
+                                                   disabled={disabledButtonShowMore}
+                                                   class="button-rotation"
+                                                   onclick={handlerOpenText}
+                                                   icon-class="widthAuto">
+                            </lightning-button-icon>
+                        </div>
+
+                        <div class="slds-grid slds-path__scroller-container">
+                            <div class="slds-path__scroller" role="application">
+                                <div class="slds-path__scroller_inner">
+                                    <div role="tablist">
+                                        <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+                                            <template for:each={mainPicklistOpenAndClosed} for:item="item">
+                                                <li data-fieldname='li'
+                                                    class="slds-path__item slds-is-incomplete stage-for-template "
+                                                    role="presentation" key={item.id} id={item.id_li}
+                                                    onclick={setId}>
+                                                    <a aria-selected="true" data-fieldname='a'
+                                                       class="slds-path__link" role="option"
+                                                       tabindex="-1" id={item.id_a} onclick={setId}>
+                                                        <span data-fieldname='span' class="slds-path__stage">
+                                                        <lightning-icon icon-name="utility:check"
+                                                                        data-fieldname='lightning-icon'
+                                                                        alternative-text="Connected"
+                                                                        variant="inverse"
+                                                                        size="x-small"
+                                                                        title="x-small size">
+                                                        </lightning-icon>
+                                                        </span>
+                                                        <span class="slds-path__title" id={item.id_span}
+                                                              data-fieldname='span with text'
+                                                              onclick={setId}>{item.label}</span>
+                                                    </a>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div style="margin: 0px 0px 0px 24px" class="widthAuto">
+                            <lightning-button class="slds-text-align_center "
+                                              variant="brand"
+                                              label={labelButtonForStatus}
+                                              icon-name={StyleButtonCheck}
+                                              onclick={openModelWithData}>
+                            </lightning-button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="slds-path__content slds-is-collapsed slds_path_content">
+                    <div class="slds-path__guidance">
+
+                        <div if:true={stageInitialOutreach}>
+                            <h2 class="slds-path__coach-title">Guidance for Success</h2>
+                            <div class="slds-text-longform slds-path__guidance-content">
+                                <!-------------------------------Initial Outreach------------------------------->
+
+                                <ul>
+                                    <li>Customer Profile/Research: Research target prospect and contact</li>
+                                    <ul>
+                                        <li>Define population (e.g. number of employees)</li>
+                                        <li> What is current situation?</li>
+                                        <li> How can Happify Health assist?</li>
+                                        <li> What are the impacts that Happify Health can solve for?</li>
+                                        <li>Use resources to prepare (e.g. Hoover’s, Sales Force News feeds, Linked In,
+                                            Organization’s website, annual report, Freeerisa.com)
+                                        </li>
+                                    </ul>
+                                    <li>Determine prospect interest, synergies on lines of business (Needs)</li>
+                                    <li>Is prospect willing to engage in a f/up discussion?</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!--------------------------------Proposal------------------------------------------>
+                        <div if:true={stageProposal}>
+                            <h2 class="slds-path__coach-title">Guidance for Success</h2>
+                            <div class="slds-text-longform slds-path__guidance-content">
+                                <ul>
+                                    <li>Define KPI’s or indicate they will be defined in SOW (Be certain that KPI’s are
+                                        measurable and attainable; discuss with Pricing Committee)
+                                    </li>
+                                    <li>Ensure NDA is fully executed</li>
+                                    <li>Include pricing expiration date</li>
+                                    <li>Ensure proposal is marked confidential and proprietary</li>
+                                    <li>Proposal may include: Email quote or formal proposal</li>
+                                    <ul>
+                                        <li>Must run through Marketing for approval</li>
+                                        <li>Run pricing through Pricing Committee for approval (President, COO, and CEO)
+                                        </li>
+                                    </ul>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-------------------------------Contracting/Procurement------------------------------->
+                        <div if:true={stageContractingProcurement}>
+                            <h2 class="slds-path__coach-title">Guidance for Success</h2>
+                            <div class="slds-text-longform slds-path__guidance-content">
+                                <ul>
+                                    <li>Execute BAA or MBA (the client’s Business Agreement)</li>
+                                    <ul>
+                                        <li>Signatories are Laurie, Tomer and Ofer</li>
+                                        <li>Contract is reviewed by Pricing Committee and Legal Team</li>
+                                        <li>Develop and generate SOW (get template from client)</li>
+                                        <li>Define/confirm mutually agreed upon KPI’s/Metrics</li>
+                                    </ul>
+                                    <li>Begin Implementation Meetings (TBD by COO)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-------------------------------Closed Lost------------------------------->
+                        <div if:true={stageClosedLost}>
+                            <h2 class="slds-path__coach-title">Guidance for Success</h2>
+                            <div class="slds-text-longform slds-path__guidance-content">
+                                <strong> Revise techniques to increase future wins.</strong>
+                                <ul>
+                                    <li>What contributed to losing this opportunity?</li>
+                                    <li>What do we need to do differently to improve our chances of winning?</li>
+                                    <li>Schedule a follow-up task or event for this account.</li>
+                                </ul>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <template if:true={loaded}>
+            <lightning-spinner alternative-text="Loading" variant="brand" size="medium"></lightning-spinner>
+        </template>
+        <c-popap-for-opportunity-status if:true={openModelWithDataField}
+                                        oncancel={handleCloseModalWithData}
+                                        onsave={handleSaveMethodWithData}
+                                        record-id={recordId}
+                                        status-opportunity={statusOpportunity}
+                                        list-picklist-stage-closed={listPicklistStageClosed}
+                                        onsendclosedstage={sendClosedStage}>
+        </c-popap-for-opportunity-status>
+
+
+    </article>
+</template>
